@@ -5,16 +5,7 @@ use std::io::BufReader;
 
 use xml::reader::{EventReader, XmlEvent};
 
-fn indent(size: usize) -> String
-{
-    const INDENT: &'static str = "    ";
-    (0..size)
-        .map(|_| INDENT)
-        .fold(
-            String::with_capacity(
-                size*INDENT.len()),
-                |r, s| r + s)
-}
+use crates::id;
 
 pub fn exec(path: &String)
 {
@@ -22,7 +13,6 @@ pub fn exec(path: &String)
     let file = BufReader::new(file);
 
     let parser = EventReader::new(file);
-    let mut depth = 0;
     for e in parser
     {
         match e
@@ -31,15 +21,7 @@ pub fn exec(path: &String)
             {
                 if name.local_name == "section"
                 {
-                    for attr in 0..(attributes.len())
-                    {
-                        if attributes[attr].name.local_name == "identifier"
-                        {
-                            println!("{:?}", attributes[attr].value);
-                            break;
-                        }
-
-                    }
+                    println!("{}", id::exec(attributes))
                 }
             }
             Err(e) =>
