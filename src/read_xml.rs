@@ -8,6 +8,7 @@ use xml::reader::{EventReader, XmlEvent};
 
 
 mod vec_id;
+mod section;
 
 
 pub fn exec(path: &String)
@@ -22,9 +23,10 @@ pub fn exec(path: &String)
         {
             Ok(XmlEvent::StartElement { name, attributes, .. }) =>
             {
-                if name.local_name == "section"
+                if section::exec(&name)
                 {
-                    println!("{:?}", vec_id::exec(&attributes))
+                    let id: String = vec_id::exec(&attributes).unwrap();
+                    println!("{}", id);
                 }
             }
             Err(e) =>
