@@ -1,3 +1,6 @@
+extern crate xml;
+extern crate cached;
+
 mod cmd_args;
 mod read_xml;
 

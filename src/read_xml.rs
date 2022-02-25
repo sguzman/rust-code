@@ -1,11 +1,14 @@
 extern crate xml;
 
+
 use std::fs::File;
 use std::io::BufReader;
 
 use xml::reader::{EventReader, XmlEvent};
 
-use crates::id;
+
+mod vec_id;
+
 
 pub fn exec(path: &String)
 {
@@ -21,7 +24,7 @@ pub fn exec(path: &String)
             {
                 if name.local_name == "section"
                 {
-                    println!("{}", id::exec(attributes))
+                    println!("{:?}", vec_id::exec(&attributes))
                 }
             }
             Err(e) =>
