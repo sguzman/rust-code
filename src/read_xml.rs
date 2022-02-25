@@ -6,10 +6,6 @@ use std::io::BufReader;
 
 use xml::reader::{EventReader, XmlEvent};
 
-
-mod id;
-mod section;
-
 pub fn exec(path: &String)
 {
     let file = File::open(path).unwrap();
@@ -22,15 +18,23 @@ pub fn exec(path: &String)
         {
             Ok(XmlEvent::StartElement { name, attributes, .. }) =>
             {
-                if section::exec(&name)
+                match name.local_name.as_str()
                 {
-                    match id::exec(&attributes) {
-                        Some(string) =>
+                    "section" =>
+                    {
+                        for attr in attributes
                         {
-                            println!("{}", string);
+                            match attr.name.local_name.as_str()
+                            {
+                                "identifier"=>
+                                {
+                                    println!("{}", attr.value);
+                                }
+                                _ => {}
+                            }
                         }
-                        None => {}
                     }
+                    _ => {}
                 }
             }
             Err(e) =>
