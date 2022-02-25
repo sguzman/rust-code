@@ -7,7 +7,7 @@ use std::io::BufReader;
 use xml::reader::{EventReader, XmlEvent};
 
 
-mod vec_id;
+mod id;
 mod section;
 
 pub fn exec(path: &String)
@@ -24,7 +24,7 @@ pub fn exec(path: &String)
             {
                 if section::exec(&name)
                 {
-                    match vec_id::exec(&attributes) {
+                    match id::exec(&attributes) {
                         Some(string) =>
                         {
                             println!("{}", string);
