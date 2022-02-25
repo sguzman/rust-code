@@ -10,6 +10,6 @@ xml-rs = "0.8.4"
 cached = "0.30.0"
 
 [[bin]]
-name = "structure"
-path = "src/structure.rs"
+name = "single"
+path = "src/single.rs"
 test = false
