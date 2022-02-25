@@ -10,7 +10,6 @@ use xml::reader::{EventReader, XmlEvent};
 mod vec_id;
 mod section;
 
-
 pub fn exec(path: &String)
 {
     let file = File::open(path).unwrap();
@@ -25,8 +24,13 @@ pub fn exec(path: &String)
             {
                 if section::exec(&name)
                 {
-                    let id: String = vec_id::exec(&attributes).unwrap();
-                    println!("{}", id);
+                    match vec_id::exec(&attributes) {
+                        Some(string) =>
+                        {
+                            println!("{}", string);
+                        }
+                        None => {}
+                    }
                 }
             }
             Err(e) =>
